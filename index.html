@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyMate | Study Planner</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #F7F5EF;
+            color: #292A26;
+        }
+
+        header {
+            padding: 22px 8%;
+            background: #FFFFFF;
+            border-bottom: 1px solid #E8E4DA;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #B65B46;
+        }
+
+        nav a {
+            color: #55564F;
+            text-decoration: none;
+            margin-left: 22px;
+        }
+
+        nav a:hover {
+            color: #A44D3B;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 24px;
+        }
+
+        .welcome {
+            background: #E8E9DF;
+            padding: 42px;
+            border-radius: 18px;
+        }
+
+        .welcome p {
+            color: #62635B;
+            line-height: 1.8;
+        }
+
+        .welcome h1 {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .label {
+            color: #A44D3B;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 12px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #E8E4DA;
+            padding: 22px;
+            border-radius: 14px;
+        }
+
+        .stat-card p {
+            color: #77776F;
+        }
+
+        .stat-card h2 {
+            font-size: 30px;
+            margin: 0;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 32px;
+        }
+
+        .filters a {
+            text-decoration: none;
+            color: #55564F;
+            background: #FFFFFF;
+            border: 1px solid #E8E4DA;
+            border-radius: 8px;
+            padding: 11px 16px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .filters a:hover,
+        .filters a.active {
+            background: #A44D3B;
+            color: #FFFFFF;
+            border-color: #A44D3B;
+        }
+
+        .section-title {
+            margin-top: 32px;
+            font-size: 23px;
+        }
+
+        .task-card {
+            background: white;
+            border: 1px solid #E8E4DA;
+            border-radius: 14px;
+            padding: 22px;
+            margin-top: 16px;
+        }
+
+        .task-card p {
+            color: #77776F;
+            line-height: 1.6;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #DAD6CB;
+            border-radius: 8px;
+            background: #FDFCF9;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: 2px solid #D9A194;
+            border-color: #A44D3B;
+        }
+
+        button {
+            padding: 12px 16px;
+            background: #A44D3B;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #873D2F;
+        }
+
+        .task-card.completed {
+            background: #F0F2EB;
+        }
+
+        .completed .task-name {
+            text-decoration: line-through;
+            color: #77776F;
+        }
+
+        .task-status {
+            color: #55734B !important;
+            font-weight: bold;
+        }
+
+        .delete-button {
+            background: #686860;
+        }
+
+        .delete-button:hover {
+            background: #45453F;
+        }
+
+        .task-form {
+            margin-top: 12px;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 30px 20px;
+            color: #77776F;
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px;
+            color: #77776F;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px;
+            }
+
+            nav a {
+                margin-left: 8px;
+                font-size: 13px;
+            }
+
+            .welcome {
+                padding: 26px;
+            }
+
+            .welcome h1 {
+                font-size: 28px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .filters a {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">Study<span>Mate</span></div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="#tasks">My Tasks</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="welcome">
+            <span class="label">YOUR PERSONAL STUDY PLANNER</span>
+
+            <h1>Make time for what matters.</h1>
+
+            <p>
+                Organize your studies, manage your assignments,
+                and take one step forward every day.
+            </p>
+        </section>
+
+        <section class="stats">
+            <div class="stat-card">
+                <p>Total Tasks</p>
+                <h2>{{ total_count }}</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Completed Tasks</p>
+                <h2>{{ completed_count }}</h2>
+            </div>
+        </section>
+
+        <div class="filters">
+            <a href="/?filter=all" class="{% if selected_filter == 'all' %}active{% endif %}">
+                All Tasks
+            </a>
+
+            <a href="/?filter=active" class="{% if selected_filter == 'active' %}active{% endif %}">
+                Active Tasks
+            </a>
+
+            <a href="/?filter=completed" class="{% if selected_filter == 'completed' %}active{% endif %}">
+                Completed Tasks
+            </a>
+        </div>
+
+        <section id="tasks">
+            <h2 class="section-title">My Tasks</h2>
+
+            <div class="task-card">
+                <h3>Add a New Task</h3>
+
+                <form action="/add" method="POST">
+
+                    <label for="title">Task Name</label>
+                    <input type="text" id="title" name="title" placeholder="e.g. Practice Python" required>
+
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="e.g. Programming" required>
+
+                    <label for="due_date">Due Date</label>
+                    <input type="date" id="due_date" name="due_date" required>
+
+                    <button type="submit">+ Add Task</button>
+
+                </form>
+            </div>
+
+            {% for task in tasks %}
+
+            <div class="task-card {% if task['completed'] %}completed{% endif %}">
+
+                <h3 class="task-name">{{ task['title'] }}</h3>
+
+                <p>Subject: {{ task['subject'] }}</p>
+
+                <p>Due date: {{ task['due_date'] }}</p>
+
+                {% if task['completed'] %}
+                <p class="task-status">Completed!</p>
+                {% else %}
+                <p>Not completed yet</p>
+                {% endif %}
+
+                <form class="task-form" action="/complete/{{ task['id'] }}" method="POST">
+                    {% if task['completed'] %}
+                    <button type="submit">
+                        Mark as Incomplete
+                    </button>
+                    {% else %}
+                    <button type="submit">
+                        Mark as Complete
+                    </button>
+                    {% endif %}
+                </form>
+
+                <form class="task-form" action="/delete/{{ task['id'] }}" method="POST"
+                    onsubmit="return confirm('Are you sure you want to delete this task?');">
+                    <button type="submit" class="delete-button">
+                        Delete Task
+                    </button>
+                </form>
+
+            </div>
+
+            {% else %}
+
+            <div class="task-card empty-message">
+                {% if selected_filter == 'active' %}
+                <p>No active tasks. Great job!</p>
+                {% elif selected_filter == 'completed' %}
+                <p>No completed tasks yet.</p>
+                {% else %}
+                <p>No tasks yet. Add your first task above!</p>
+                {% endif %}
+            </div>
+
+            {% endfor %}
+
+        </section>
+
+    </main>
+
+    <footer>
+        StudyMate — Small steps, steady progress.
+    </footer>
+
+</body>
+
+</html>
